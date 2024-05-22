@@ -14,4 +14,3 @@ create table `organization_type`
 INSERT INTO organization_type (`name`)
 VALUES ('Organization Type 1'),
        ('Organization Type 2');
-

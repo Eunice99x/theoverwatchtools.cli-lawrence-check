@@ -79,22 +79,28 @@ func (dm *DockerEnv) Cleanup(ctx context.Context) error {
 // because it will remove other running instances with colliding port, OR names.
 func (dm *DockerEnv) UpsertContainer(ctx context.Context, recreate bool) (string, error) {
 	m.Lock()
+	//os.Setenv("DOCKER_HOST", "unix:///home/eunice99x/.docker/desktop/docker.sock")
+	//os.Setenv("DOCKER_CONTEXT", "desktop-linux")
 	defer m.Unlock()
-
+	fmt.Println("1")
 	allContainers, err := dm.client.ContainerList(ctx, container.ListOptions{All: true})
 	if err != nil {
 		return "", err
 	}
-
+	fmt.Println("2")
 	targetHostPort := strconv.Itoa(dm.cfg.HostPort)
 
 	for _, ctn := range allContainers {
+		fmt.Println(ctn.Names)
+		fmt.Println(ctn.ID)
 		// Check if there is a port, and mysql image that is the same
 		hasPortBindingCollision := sliceutil.Compare(ctn.Ports, func(port types.Port) bool {
 			return strconv.Itoa(int(port.PublicPort)) == targetHostPort && port.Type == "tcp"
 		})
 		if hasPortBindingCollision {
 			if !recreate {
+				fmt.Println("3")
+				fmt.Println(ctn.Ports)
 				dm.ContainerID = ctn.ID
 				return ctn.ID, nil
 			}
@@ -115,12 +121,14 @@ func (dm *DockerEnv) UpsertContainer(ctx context.Context, recreate bool) (string
 				return "", fmt.Errorf("failed to start existing container: %s, with error: %w", ctn.ID, err)
 			}
 			dm.ContainerID = ctn.ID
+			fmt.Println("4")
 			return ctn.ID, nil
 		}
 
 		if hasContainerNameCollision {
 			if !recreate {
 				dm.ContainerID = ctn.ID
+				fmt.Println("5")
 				return ctn.ID, nil
 			}
 

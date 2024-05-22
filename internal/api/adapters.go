@@ -24,6 +24,10 @@ type organizationService interface {
 	RestoreOrganization(ctx context.Context, params *model.RestoreOrganization) error
 }
 
+type capturePagesService interface {
+	ListCapturePages(ctx context.Context, filters *model.CapturePagesFilters) (*model.PaginatedCapturePages, error)
+}
+
 //counterfeiter:generate . userService
 type userService interface {
 	ListUsers(ctx context.Context, filters *model.UserFilters) (*model.PaginatedUsers, error)

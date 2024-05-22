@@ -15,4 +15,3 @@ INSERT INTO `organization` (`name`, `organization_type_ref_id`)
 VALUES
     ('TEST DATA 1', 1),
     ('TEST DATA 2', 1);
-

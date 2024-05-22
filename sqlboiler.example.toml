@@ -9,9 +9,9 @@ down_plural   = "ReportRuns"
 down_singular = "ReportRan"
 
 [mysql]
-dbname  = "your_database"
-host    = "your_host"
-port    = 3306
-user    = "your_user"
-pass    = "your_pass"
+dbname  = "platform_engineer"
+host    = "localhost"
+port    = 3337
+user    = "demby"
+pass    = "secret"
 sslmode = "false"

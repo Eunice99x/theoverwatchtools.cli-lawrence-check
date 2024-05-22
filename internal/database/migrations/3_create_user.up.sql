@@ -1,5 +1,3 @@
-SET FOREIGN_KEY_CHECKS = 0;
-
 CREATE TABLE `user`
 (
     `id`                   int(11) NOT NULL AUTO_INCREMENT,
@@ -26,5 +24,3 @@ CREATE TABLE `user`
     CONSTRAINT `fk_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON DELETE RESTRICT,
     CONSTRAINT `fk_created_last_updated_by` FOREIGN KEY (`last_updated_by`) REFERENCES `user` (`id`) ON DELETE RESTRICT
 );
-
-SET FOREIGN_KEY_CHECKS = 1;
